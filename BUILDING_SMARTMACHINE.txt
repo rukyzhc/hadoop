@@ -1,0 +1,19 @@
+Build instructions for Hadoop Under SmartOS zone
+Tested on SmartOS Mini64 (briphant-version) 2015Q2 image & pkgsrc
+
+----------------------------------------------------------------------------------
+Requirements:
+OS: SmartOS Mini64 (briphant-version) 15.2.0
+PKGSRC: Joyent Repo 2015Q2 & 2014Q4
+PKGS:
+    - LIB: pkgin in zlib libssl Snappy
+		- LIB(2014Q4): pkgin in protobuf-2.5.0
+		- JAVA: pkgin in apache-maven apache-ant
+	  - NATIVE: pkgin in automake autoconf libtool gcc47 cmake gmake pkg-config build-essential
+
+export JAVA_HOME=${JAVA_HOME}
+
+Use following command to compile executable package
+
+mvn package -Pdist,native -DskipTests -Dtar
+

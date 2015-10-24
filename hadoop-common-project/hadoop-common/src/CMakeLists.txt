@@ -110,6 +110,8 @@ SET(CMAKE_FIND_LIBRARY_SUFFIXES ${STORED_CMAKE_FIND_LIBRARY_SUFFIXES})
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -Wall -O2")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D_REENTRANT -D_GNU_SOURCE")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64")
+# for solaris
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D_POSIX_PTHREAD_SEMANTICS")
 set(D main/native/src/org/apache/hadoop)
 set(T main/native/src/test/org/apache/hadoop)
 
@@ -247,8 +249,9 @@ add_dual_library(hadoop
     ${D}/io/nativeio/errno_enum.c
     ${D}/io/nativeio/file_descriptor.c
     ${D}/io/nativeio/SharedFileDescriptorFactory.c
-    ${D}/net/unix/DomainSocket.c
-    ${D}/net/unix/DomainSocketWatcher.c
+# Disable for solaris: cannot use ShortCircuitLocalReads
+#    ${D}/net/unix/DomainSocket.c
+#    ${D}/net/unix/DomainSocketWatcher.c
     ${D}/security/JniBasedUnixGroupsMapping.c
     ${D}/security/JniBasedUnixGroupsNetgroupMapping.c
     ${D}/security/hadoop_group_info.c
